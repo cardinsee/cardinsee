@@ -1,12 +1,12 @@
 Store and retrieve objects from a search index
 =================
 
-[![Latest Version](https://img.shields.io/github/release/spatie/searchindex.svg?style=flat-square)](https://github.com/spatie/searchindex/releases)
+[![Latest Version](https://img.shields.io/github/release/spatie/customizablead.svg?style=flat-square)](https://github.com/spatie/customizablead/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build status](https://img.shields.io/travis/spatie/searchindex.svg?style=flat-square)](https://travis-ci.org/spatie/searchindex)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/searchindex.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/searchindex)
+[![Build status](https://img.shields.io/travis/spatie/customizablead.svg?style=flat-square)](https://travis-ci.org/spatie/customizablead)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/customizablead.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/customizablead)
 [![StyleCI](https://styleci.io/repos/29306962/shield)](https://styleci.io/repos/29306962)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/searchindex.svg?style=flat-square)](https://packagist.org/packages/spatie/searchindex)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/customizablead.svg?style=flat-square)](https://packagist.org/packages/spatie/customizablead)
 
 This is an opinionated Laravel 5.1 package to store and retrieve objects from a search index.
 Currently [Elasticsearch](http://www.elasticsearch.org) and [Algolia](https://www.algolia.com) are supported.
@@ -14,15 +14,15 @@ Currently [Elasticsearch](http://www.elasticsearch.org) and [Algolia](https://ww
 Once the package is installed objects can be easily indexed and retrieved:
 ```php
 //$product is an object that implements the Searchable interface
-SearchIndex::upsertToIndex($product);
+customizablead::upsertToIndex($product);
 
-SearchIndex::getResults('look for this');
+customizablead::getResults('look for this');
 ```
 
 Spatie is a webdesign agency in Antwerp, Belgium. You'll find an overview of all our
 open source projects [on our website](https://spatie.be/opensource).
 
-# diegomscoe/ensembl
+# customizablead
 
 Learn how to create a package like this one, by watching our premium video course:
 
@@ -44,7 +44,7 @@ The best postcards will get published on the open source page on our website.
 This package can be installed through Composer.
 
 ```bash
-composer require spatie/searchindex
+composer require spatie/customizablead
 ```
 
 You must install this service provider.
@@ -53,7 +53,7 @@ You must install this service provider.
 // config/app.php
 'providers' => [
     ...
-    Spatie\SearchIndex\SearchIndexServiceProvider::class,
+    Spatie\customizablead\customizableadServiceProvider::class,
 ];
 ```
 
@@ -64,13 +64,13 @@ This package also comes with a facade, which provides an easy way to call the th
 // config/app.php
 'aliases' => [
 	...
-	'SearchIndex' => Spatie\SearchIndex\SearchIndexFacade::class,
+	'customizablead' => Spatie\customizablead\customizableadFacade::class,
 ]
 ```
 
 You can publish the config-file with:
 ```bash
-php artisan vendor:publish --provider="Spatie\SearchIndex\SearchIndexServiceProvider"
+php artisan vendor:publish --provider="Spatie\customizablead\customizableadServiceProvider"
 ```
 
 The options in the config file are set with sane default values and they should
@@ -100,10 +100,10 @@ composer require algolia/algoliasearch-client-php
 ### Prepare your object
 
 Objects that you want to store in the index should implement the
-provided ```Spatie\SearchIndex\Searchable```- interface.
+provided ```Spatie\customizablead\Searchable```- interface.
 
 ```php
-namespace Spatie\SearchIndex;
+namespace Spatie\customizablead;
 
 interface Searchable {
 
@@ -176,7 +176,7 @@ class Product extends Eloquent implements Searchable
 }
 ```
 
-The searchindex will use the returned searchableType and searchableId to
+The customizablead will use the returned searchableType and searchableId to
 identify an object in the index.
 
 ### Add an object to the index
@@ -184,7 +184,7 @@ If you are using the facade it couldn't be simpler.
 ```php
 //$product is an object that implements the Searchable interface
 
-SearchIndex::upsertToIndex($product);
+customizablead::upsertToIndex($product);
 ```
 
 ### Update an object in the index
@@ -193,7 +193,7 @@ You probably would have guessed it.
 ```php
 //$product is an object that implements the Searchable interface
 
-SearchIndex::upsertToIndex($product);
+customizablead::upsertToIndex($product);
 ```
 ### Remove an object from the index
 Yep. Easy.
@@ -201,13 +201,13 @@ Yep. Easy.
 ```php
 //$product is an object that implements the Searchable interface
 
-SearchIndex::removeFromIndex($product);
+customizablead::removeFromIndex($product);
 ```
 
 Alternatively you can remove an object from the index by passing type and id:
 
 ```php
-SearchIndex::removeFromIndexByTypeAndId('product', 1);
+customizablead::removeFromIndexByTypeAndId('product', 1);
 ```
 This can be handy when you've already deleted your model.
 
@@ -215,13 +215,13 @@ This can be handy when you've already deleted your model.
 If only you could to this with your facebook account.
 
 ```php
-SearchIndex::clearIndex();
+customizablead::clearIndex();
 ```
 
 ### Perform a search on the index
 You can retrieve search results with this method:
 ```php
-SearchIndex::getResults($query);
+customizablead::getResults($query);
 ```
 
 #### Elasticsearch
@@ -258,7 +258,7 @@ in the official elasticsearch documentation.
 #### Algolia
 You can just pass a string to search the index:
 ```php
-SearchIndex::getResults('look for this');
+customizablead::getResults('look for this');
 ```
 To perform more advanced queries an array may be passed. Read
 the [official documentation](https://github.com/algolia/algoliasearch-client-php#search) to learn what's possible.
@@ -266,7 +266,7 @@ the [official documentation](https://github.com/algolia/algoliasearch-client-php
 ### All other operations
 For all other operations you can get the underlying client:
 ```php
-SearchIndex::getClient(); // will return the Elasticsearch or Algolia client.
+customizablead::getClient(); // will return the Elasticsearch or Algolia client.
 ```
 
 ## Query helpers
@@ -274,14 +274,14 @@ SearchIndex::getClient(); // will return the Elasticsearch or Algolia client.
 If you're using Algolia you can use a `SearchQuery`-object to perform searches.
 
 ```php
-use Spatie\SearchIndex\Query\Algolia\SearchIndex();
+use Spatie\customizablead\Query\Algolia\customizablead();
 
 $searchQuery = new SearchQuery();
 $searchQuery->searchFor('my query')
             ->withFacet('facetName', 'facetValue');
 
 //a searchQuery object may be passed to the getResults-function directly.
-SearchIndex::getResults($searchQuery);
+customizablead::getResults($searchQuery);
 ```
 
 ## Tests
